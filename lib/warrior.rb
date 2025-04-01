@@ -1,35 +1,5 @@
-module Dice
-  def self.roll(n)
-    return rand(n) 
-  end
-end
-
-class Character
-  attr_accessor :name, :hp, :attack_damage
-
-  def initialize(name, hp, attack_damage)
-    @name = name
-    @hp = hp
-    @attack_damage = attack_damage
-  end
-
-  def alive?
-    @hp > 0
-  end
-
-  def attack(opponent)
-    damage = Dice.roll(@attack_damage)
-    opponent.hp -= damage
-    opponent.hp = 0 if opponent.hp < 0
-    puts "#{@name} attacks #{opponent.name} for #{damage}"
-  end
-
-  def info()
-    puts "Name: #{@name}"
-    puts "HP: #{@hp}"
-  end
-
-end
+require_relative 'character'
+require_relative 'dice'
 
 class Warrior < Character
   attr_accessor :level, :gold, :armor_points, :attack_damage
@@ -52,14 +22,3 @@ class Warrior < Character
 
 end
 
-war1 = Warrior.new("Arbo", 6)
-puts war1.info()
-
-gob1 = Character.new("Goblin", 4, 6)
-puts gob1.info()
-
-war1.attack(gob1)
-gob1.attack(war1)
-
-puts "After turn 1 #{war1.name} has #{war1.hp} left"
-puts "After turn 1 #{gob1.name} has #{gob1.hp} left"
